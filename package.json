@@ -1,6 +1,7 @@
 {
   "name": "react-tdd",
   "version": "0.1.0",
+  "homepage": "https://weaverb.github.io/react-tdd/",
   "private": true,
   "dependencies": {
     "prop-types": "^15.6.0",
@@ -12,6 +13,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -34,6 +37,6 @@
         "statements": 80
       }
     },
-    "coverageReporters": ["text"]
+    "coverageReporters": ["text", "lcov"]
   }
 }
