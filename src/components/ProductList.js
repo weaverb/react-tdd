@@ -15,9 +15,13 @@ function ProductList(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <List component="div">
+      <List component="ul">
         {props.products.map(p => (
-          <ListItem button key={p.id} onClick={() => props.onProductSelect(p)}>
+          <ListItem
+            button
+            component="li"
+            key={p.id}
+            onClick={() => props.onProductSelect(p)}>
             <ListItemIcon>
               <i className="material-icons md-36">add_circle</i>
             </ListItemIcon>

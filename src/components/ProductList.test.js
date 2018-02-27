@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { createShallow } from 'material-ui/test-utils';
 import ProductList from './ProductList';
+import { ListItem, ListItemText } from 'material-ui/List';
 
-let mockProducts, wrapper, productSelectFn;
+let mockProducts, shallow, wrapper, productSelectFn;
 
 beforeEach(() => {
   mockProducts = [
@@ -12,7 +13,7 @@ beforeEach(() => {
   ];
 
   productSelectFn = jest.fn();
-
+  shallow = createShallow({ dive: true });
   wrapper = shallow(
     <ProductList products={mockProducts} onProductSelect={productSelectFn} />
   );
@@ -23,21 +24,21 @@ afterEach(() => {
 });
 
 it('should render a list of products as an unordered list', () => {
-  expect(wrapper.find('li').length).toEqual(mockProducts.length);
+  expect(wrapper.find(ListItem).length).toEqual(mockProducts.length);
 });
 
 it('should display a product name in each `<li>` element', () => {
-  const firstEl = wrapper.find('li').first();
-  expect(firstEl.contains(mockProducts[0].name)).toEqual(true);
+  const firstEl = wrapper.find(ListItemText).first();
+  expect(firstEl.prop('primary')).toMatch(mockProducts[0].name);
 });
 
 it('should display a product brand in each `<li>` element', () => {
-  const firstEl = wrapper.find('li').first();
-  expect(firstEl.contains(mockProducts[0].brand)).toEqual(true);
+  const firstEl = wrapper.find(ListItemText).first();
+  expect(firstEl.prop('primary')).toMatch(mockProducts[0].brand);
 });
 
 it('should call `props.onProductSelect` when `<li>` is clicked', () => {
-  const firstEl = wrapper.find('li').first();
+  const firstEl = wrapper.find(ListItem).first();
   expect(productSelectFn.mock.calls.length).toEqual(0);
   firstEl.simulate('click');
   expect(productSelectFn.mock.calls.length).toEqual(1);
